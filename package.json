@@ -1,0 +1,30 @@
+{
+  "name": "abf-self-scripts",
+  "version": "1.0.0",
+  "description": "My scripts for Anima Beyond Fantasy",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Linkaynn/abf-self-scripts.git"
+  },
+  "keywords": [
+    "anima",
+    "beyond",
+    "fantasy",
+    "foundryvtt"
+  ],
+  "author": "Jesé Romero Arbelo <jeseromeroarbelo@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Linkaynn/abf-self-scripts/issues"
+  },
+  "homepage": "https://github.com/Linkaynn/abf-self-scripts#readme",
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.268.0",
+    "prettier": "^2.8.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.4"
+  }
+}
