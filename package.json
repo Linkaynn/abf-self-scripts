@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "rimraf build && webpack --watch",
     "build": "rimraf build && webpack",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "repository": {
     "type": "git",
