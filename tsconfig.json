@@ -13,14 +13,17 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
     "declaration": true,
     "baseUrl": "./src",
     "sourceMap": true,
     "outDir": "build",
-    "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo",
     "strictNullChecks": true,
     "types": ["@league-of-foundry-developers/foundry-vtt-types"]
   },
-  "include": ["src/scripts/*.ts", "src/globals.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx", "src/globals.d.ts"],
   "exclude": ["node_modules"]
 }

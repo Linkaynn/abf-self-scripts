@@ -143,11 +143,13 @@ window.buildCustomMessageDiceFlavor = ({ title, subtitle, message }) => {
 
 window.getGMUser = () => game.users!.find((u) => u.isGM)!;
 
-window.customScriptsInitialized = true;
+if (!window.customScriptsInitialized) {
+  window.customScriptsInitialized = true;
 
-window.createDialog("Inicialización", "¡Scripts inicializados!");
+  window.createDialog("Inicialización", "¡Scripts inicializados!");
 
-console.log(
-  "%c Anima Beyond Foundry Enhanced! ",
-  "background: #222; color: #bada55"
-);
+  console.log(
+    "%c Anima Beyond Foundry Enhanced! ",
+    "background: #222; color: #bada55"
+  );
+}

@@ -1,4 +1,5 @@
 import { TokenData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
+import { ReactElement } from "react";
 
 export {};
 
@@ -26,6 +27,9 @@ declare global {
     }) => string;
     getGMUser: () => User;
     customScriptsInitialized: boolean;
+    prepareReact: () => void;
+    render: (element: ReactElement) => void;
+    whisperGM: () => void;
   }
 
   class ABFFoundryRoll extends Roll {}
