@@ -5,7 +5,7 @@ export {};
 
 declare global {
   interface Window {
-    createDialog: (title: string, content: string) => void;
+    createDialog: (title: string, content: string) => Dialog;
     custom1d100: (params: {
       title: string;
       message?: string;

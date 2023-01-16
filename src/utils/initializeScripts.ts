@@ -15,7 +15,7 @@ window.createDialog = (title: string, content: string) =>
     },
     default: "accept",
     close: () => {},
-  }).render(true);
+  }).render(true) as Dialog;
 
 window.custom1d100 = ({ title, message, additionalDiceValues }) =>
   new Promise((resolve) => {
@@ -146,7 +146,14 @@ window.getGMUser = () => game.users!.find((u) => u.isGM)!;
 if (!window.customScriptsInitialized) {
   window.customScriptsInitialized = true;
 
-  window.createDialog("Inicialización", "¡Scripts inicializados!");
+  const initDialog = window.createDialog(
+    "Initialization",
+    "Anima Beyond Foundry Enhanced!"
+  );
+
+  setTimeout(() => {
+    initDialog.close();
+  }, 1000);
 
   console.log(
     "%c Anima Beyond Foundry Enhanced! ",
