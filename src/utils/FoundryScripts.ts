@@ -1,4 +1,4 @@
-import "../index.css";
+import '../index.css';
 
 class GCError extends Error {
   constructor(message: string) {
@@ -12,10 +12,10 @@ export const createDialog = (title: string, content: string): Dialog =>
     content,
     buttons: {
       accept: {
-        label: "Aceptar",
+        label: 'Aceptar',
       },
     },
-    default: "accept",
+    default: 'accept',
     close: () => {},
   }).render(true) as Dialog;
 
@@ -30,19 +30,19 @@ export const custom1d100 = ({
 }): Promise<ABFFoundryRoll> =>
   new Promise((resolve) => {
     return new Dialog({
-      title: title ?? "1 dado de 100 con modificador",
+      title: title ?? '1 dado de 100 con modificador',
       content: `
     <form>
-    ${message ?? ""}
+    ${message ?? ''}
     <input type="text" name="custom1d100input" placeholder="Modifier"> 
     </form>
     `,
       buttons: {
         no: {
-          label: "Cancel",
+          label: 'Cancel',
         },
         yes: {
-          label: "Lanzar",
+          label: 'Lanzar',
           callback: (html) => {
             if (html instanceof HTMLElement) return;
 
@@ -50,7 +50,7 @@ export const custom1d100 = ({
               .nodeValue;
 
             if (!stringInputValue) {
-              throw new GCError("Invalid value");
+              throw new GCError('Invalid value');
             }
 
             let formula = `1d100xa`;
@@ -71,7 +71,7 @@ export const custom1d100 = ({
           },
         },
       },
-      default: "yes",
+      default: 'yes',
       close: () => {},
     }).render(true);
   });
@@ -85,35 +85,35 @@ export const getSelectedTokenActorData = (): TokenData | undefined => {
   const token = getSelectedToken();
 
   if (token === undefined) {
-    createDialog("Error", "Tienes que seleccionar a un personaje primero");
+    createDialog('Error', 'Tienes que seleccionar a un personaje primero');
 
-    throw new GCError("No selected token");
+    throw new GCError('No selected token');
   }
 
   const isMyToken =
     canvas.tokens?.ownedTokens.filter((tk) => tk.id === token.id).length === 1;
 
-  if (!isMyToken) {
-    createDialog("Error", `No tienes permisos sobre ${token.data.name}`);
+  if (!isMyToken && !game.user?.isGM) {
+    createDialog('Error', `No tienes permisos sobre ${token.data.name}`);
 
-    throw new GCError("No permission");
+    throw new GCError('No permission');
   }
 
   return token.data.document?.data;
 };
 
 export const getDifficultyName = (value: number) => {
-  if (value < 40) return "Rutinaria";
-  if (value < 80) return "Fácil";
-  if (value < 120) return "Media";
-  if (value < 140) return "Difícil";
-  if (value < 180) return "Muy difícil";
-  if (value < 240) return "Absurdo";
-  if (value < 280) return "Casi imposible";
-  if (value < 320) return "Imposible";
-  if (value < 440) return "Inhumano";
+  if (value < 40) return 'Rutinaria';
+  if (value < 80) return 'Fácil';
+  if (value < 120) return 'Media';
+  if (value < 140) return 'Difícil';
+  if (value < 180) return 'Muy difícil';
+  if (value < 240) return 'Absurdo';
+  if (value < 280) return 'Casi imposible';
+  if (value < 320) return 'Imposible';
+  if (value < 440) return 'Inhumano';
 
-  return "Zen";
+  return 'Zen';
 };
 
 export const createCharacterControl = ({
@@ -139,7 +139,7 @@ export const createCharacterControl = ({
       speaker: ChatMessage.getSpeaker({ token: getSelectedToken() }),
       flavor: buildCustomMessageDiceFlavor({
         title: subtitle,
-        subtitle: "Dificultad alcanzada",
+        subtitle: 'Dificultad alcanzada',
         message,
       }),
     });
@@ -158,7 +158,7 @@ export const buildCustomMessageDiceFlavor = ({
   return `
 <p style="font-size: 15px;text-align: center">
     <b>${title}
-    ${subtitle ? `</br><span style="font-size: 12px">${subtitle}</span>` : ""}
+    ${subtitle ? `</br><span style="font-size: 12px">${subtitle}</span>` : ''}
     </br>
     <span style="font-size: 18px; color: #6e2917">${message}</span>
 </p>`;
