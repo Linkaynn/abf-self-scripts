@@ -581,44 +581,44 @@ var Button = function (_a) {
 var Scripts = {
     WhisperGM: {
         name: 'Whisper to GM',
-        script: 'WhisperGM.script.ts',
+        script: 'WhisperGM.script.js',
         icon: 'icons/svg/light.svg',
         permissions: 'all',
     },
     NoticeRoll: {
         name: 'Notice roll',
-        script: 'NoticeRoll.script.ts',
+        script: 'NoticeRoll.script.js',
         icon: 'icons/svg/hazard.svg',
         permissions: 'all',
     },
     MagicAppraisalRoll: {
         name: 'Magic Appraisal roll',
-        script: 'MagicAppraisalRoll.script.ts',
+        script: 'MagicAppraisalRoll.script.js',
         icon: 'icons/svg/daze.svg',
         permissions: 'all',
     },
     PsychicPotentialRoll: {
         name: 'Psychic Potential roll',
-        script: 'PsychicPotentialRoll.script.ts',
+        script: 'PsychicPotentialRoll.script.js',
         icon: 'icons/svg/aura.svg',
         permissions: 'all',
     },
     CalculatePhysicalDistanceDifficulty: {
         name: 'Calculate physical distance difficulty',
-        script: 'CalculatePhysicalDistanceDifficulty.script.ts',
+        script: 'CalculatePhysicalDistanceDifficulty.script.js',
         icon: 'icons/svg/direction.svg',
         permissions: 'all',
     },
     // GM scripts
     CalculateCritics: {
         name: 'Calculate critics',
-        script: 'CalculateCritics.script.ts',
+        script: 'CalculateCritics.script.js',
         icon: 'icons/svg/skull.svg',
         permissions: 'gm',
     },
     WithStandPainControl: {
         name: 'With Stand Pain Control',
-        script: 'WithStandPainControl.script.ts',
+        script: 'WithStandPainControl.script.js',
         icon: 'icons/svg/bones.svg',
         permissions: 'gm',
     }
@@ -635,10 +635,8 @@ var log = function (message) {
 var getEvalCommand = function (scriptName) { return "\nfetch(\"https://raw.githubusercontent.com/Linkaynn/abf-self-scripts/public/".concat(scriptName, "\")\n.then(r => r.text())\n.then(eval)\n.catch(e => {\n    console.error(e);\n    new Dialog(\n      {\n        title: \"Error\",\n        content: \"<div>An error occurred trying to execute the script.</div>\",\n        buttons: {},\n        default: '',\n      },\n    ).render(true);\n});\n"); };
 var AbfSelfScriptFolderName = 'GC::Scripts';
 var createFolderIfNotExists = function () {
-    var _a;
     var existFolder = game.folders.find(function (folder) { return folder.name === AbfSelfScriptFolderName; });
     if (existFolder) {
-        (_a = existFolder.contents) === null || _a === void 0 ? void 0 : _a.forEach(function (c) { return c.delete(); });
         return Promise.resolve(existFolder);
     }
     return Folder.create({
@@ -656,15 +654,25 @@ var createEvalCommands = function (scripts) {
             }
             Promise.all(scripts.map(function (script) {
                 var scriptIndex = Object.values(Scripts).findIndex(function (s) { return s.name === script.name; });
-                var id = "[GC::".concat(scriptIndex.paddedString(2), "] ").concat(script.name);
-                return Macro.create({
-                    _id: id,
-                    type: 'script',
-                    command: getEvalCommand(script.script),
-                    name: script.name,
-                    img: script.icon,
-                    folder: folder.id,
-                });
+                var id = "[".concat(scriptIndex.paddedString(2), "]");
+                var name = "".concat(id, " ").concat(script.name);
+                var macro = game.macros.find(function (m) { return m.name != null && m.name.includes(id); });
+                if (macro) {
+                    macro.update({
+                        name: name,
+                        command: getEvalCommand(script.name),
+                        img: script.icon,
+                    });
+                }
+                else {
+                    return Macro.create({
+                        type: 'script',
+                        name: name,
+                        command: getEvalCommand(script.script),
+                        img: script.icon,
+                        folder: folder.id,
+                    });
+                }
             })).then(function () {
                 resolve();
             });
