@@ -660,7 +660,7 @@ var createEvalCommands = function (scripts) {
                 if (macro) {
                     macro.update({
                         name: name,
-                        command: getEvalCommand(script.name),
+                        command: getEvalCommand(script.script),
                         img: script.icon,
                     });
                 }
