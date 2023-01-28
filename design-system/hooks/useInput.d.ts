@@ -1,4 +1,5 @@
+import { HTMLProps } from 'react';
 export declare const useInput: (initialValue?: string) => {
     getValue: () => string;
-    Input: () => JSX.Element;
+    Input: (props?: HTMLProps<HTMLInputElement>) => JSX.Element;
 };

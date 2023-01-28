@@ -16,7 +16,7 @@ export declare const createCharacterControl: ({ title, subtitle, value, name, }:
 }) => void;
 export declare const buildCustomMessageDiceFlavor: ({ title, subtitle, message, }: {
     title: string;
-    subtitle: string;
+    subtitle?: string | undefined;
     message: string;
 }) => string;
 export declare const getGMUser: () => User;

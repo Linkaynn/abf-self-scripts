@@ -1274,9 +1274,9 @@ var buildCustomMessageDiceFlavor = function (_a) {
 };
 var getGMUser = function () { return game.users.find(function (u) { return u.isGM; }); };
 
-;// CONCATENATED MODULE: ./src/domain/WhisperGM/WhisperGMModal.tsx
-var WhisperGMModal_assign = (undefined && undefined.__assign) || function () {
-    WhisperGMModal_assign = Object.assign || function(t) {
+;// CONCATENATED MODULE: ./src/domain/CalculatePhysicalDistanceDifficulty/CalculatePhysicalDistanceDifficultyModal.tsx
+var CalculatePhysicalDistanceDifficultyModal_assign = (undefined && undefined.__assign) || function () {
+    CalculatePhysicalDistanceDifficultyModal_assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -1284,30 +1284,47 @@ var WhisperGMModal_assign = (undefined && undefined.__assign) || function () {
         }
         return t;
     };
-    return WhisperGMModal_assign.apply(this, arguments);
+    return CalculatePhysicalDistanceDifficultyModal_assign.apply(this, arguments);
 };
 
 
 
 
-var WhisperGMModal = function (_a) {
+var getDifficultyByDistance = function (value) {
+    if (value < 2)
+        return 40;
+    if (value < 11)
+        return 80;
+    if (value < 51)
+        return 120;
+    if (value < 151)
+        return 140;
+    if (value < 500)
+        return 180;
+    if (value < 1000)
+        return 240;
+    return 280;
+};
+var CalculatePhysicalDistanceDifficultyModal = function (_a) {
     var dialog = _a.dialog;
     var _b = useInput(), getValue = _b.getValue, Input = _b.Input;
     var handleSendInfo = function () {
-        ChatMessage.create({
-            content: getValue(),
-            user: game.userId,
-            whisper: [getGMUser().id],
-        });
+        var value = getValue();
+        var difficulty = getDifficultyByDistance(parseFloat(value));
+        var difficultyName = getDifficultyName(difficulty);
+        createDialog('Resultado', "<p style='text-align: center; font-size: 18px'>Para una distancia de <b>".concat(value, "</b> metros</br>el control debe ser superior a </br><b style=\"color: #6e2917\">").concat(difficulty, " (").concat(difficultyName, ")</b> </p>"));
         dialog.close();
     };
-    return ((0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(Input, {}), (0,jsx_runtime.jsxs)("div", WhisperGMModal_assign({ className: "flex gap-2" }, { children: [(0,jsx_runtime.jsx)(Button, WhisperGMModal_assign({ disabled: getValue().trim().length === 0, onClick: handleSendInfo }, { children: "Enviar" })), (0,jsx_runtime.jsx)(Button, WhisperGMModal_assign({ onClick: function () { return dialog.close(); } }, { children: "Cerrar" }))] }))] }));
+    return ((0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(Input, { style: { marginTop: '20px', marginBottom: '20px' }, placeholder: "Distancia en metros" }), (0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(Button, CalculatePhysicalDistanceDifficultyModal_assign({ disabled: getValue().trim().length === 0, onClick: handleSendInfo }, { children: "Enviar" })), (0,jsx_runtime.jsx)(Button, CalculatePhysicalDistanceDifficultyModal_assign({ onClick: function () { return dialog.close(); } }, { children: "Cerrar" }))] })] }));
 };
 
-;// CONCATENATED MODULE: ./src/domain/WhisperGM/WhisperGM.script.ts
+;// CONCATENATED MODULE: ./src/domain/CalculatePhysicalDistanceDifficulty/CalculatePhysicalDistanceDifficulty.script.ts
 
 
-renderDialog({ name: 'Whisper to Game Master', Element: WhisperGMModal });
+renderDialog({
+    name: 'Calculate physical distance difficulty',
+    Element: CalculatePhysicalDistanceDifficultyModal,
+});
 
 })();
 

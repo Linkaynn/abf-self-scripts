@@ -1,5 +1,6 @@
-interface InputProps {
+import { HTMLProps } from 'react';
+type InputProps = {
     id: string;
-}
-export declare const Input: ({ id }: InputProps) => JSX.Element;
+} & HTMLProps<HTMLInputElement>;
+export declare const Input: ({ id, ...rest }: InputProps) => JSX.Element;
 export {};

@@ -591,12 +591,37 @@ var Scripts = {
         icon: 'icons/svg/hazard.svg',
         permissions: 'all',
     },
+    MagicAppraisalRoll: {
+        name: 'Magic Appraisal roll',
+        script: 'MagicAppraisalRoll.script.ts',
+        icon: 'icons/svg/daze.svg',
+        permissions: 'all',
+    },
+    PsychicPotentialRoll: {
+        name: 'Psychic Potential roll',
+        script: 'PsychicPotentialRoll.script.ts',
+        icon: 'icons/svg/aura.svg',
+        permissions: 'all',
+    },
+    CalculatePhysicalDistanceDifficulty: {
+        name: 'Calculate physical distance difficulty',
+        script: 'CalculatePhysicalDistanceDifficulty.script.ts',
+        icon: 'icons/svg/direction.svg',
+        permissions: 'all',
+    },
+    // GM scripts
     CalculateCritics: {
         name: 'Calculate critics',
         script: 'CalculateCritics.script.ts',
         icon: 'icons/svg/skull.svg',
         permissions: 'gm',
     },
+    WithStandPainControl: {
+        name: 'With Stand Pain Control',
+        script: 'WithStandPainControl.script.ts',
+        icon: 'icons/svg/bones.svg',
+        permissions: 'gm',
+    }
 };
 
 ;// CONCATENATED MODULE: ./src/utils/log.ts
@@ -607,7 +632,7 @@ var log = function (message) {
 ;// CONCATENATED MODULE: ./src/utils/createEvalCommands.ts
 
 
-var getEvalCommand = function (scriptName) { return "\nfetch(\"https://raw.githubusercontent.com/Linkaynn/abf-self-scripts/public/".concat(scriptName, "\")\n.then(r => r.text())\n.then(eval)\n"); };
+var getEvalCommand = function (scriptName) { return "\nfetch(\"https://raw.githubusercontent.com/Linkaynn/abf-self-scripts/public/".concat(scriptName, "\")\n.then(r => r.text())\n.then(eval)\n.catch(e => {\n    console.error(e);\n    new Dialog(\n      {\n        title: \"Error\",\n        content: \"<div>An error occurred trying to execute the script.</div>\",\n        buttons: {},\n        default: '',\n      },\n    ).render(true);\n});\n"); };
 var AbfSelfScriptFolderName = 'GC::Scripts';
 var createFolderIfNotExists = function () {
     var _a;
