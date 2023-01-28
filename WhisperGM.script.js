@@ -1164,10 +1164,10 @@ var createDialog = function (title, content) {
         content: content,
         buttons: {
             accept: {
-                label: "Aceptar",
+                label: 'Aceptar',
             },
         },
-        default: "accept",
+        default: 'accept',
         close: function () { },
     }).render(true);
 };
@@ -1175,21 +1175,21 @@ var custom1d100 = function (_a) {
     var title = _a.title, message = _a.message, additionalDiceValues = _a.additionalDiceValues;
     return new Promise(function (resolve) {
         return new Dialog({
-            title: title !== null && title !== void 0 ? title : "1 dado de 100 con modificador",
-            content: "\n    <form>\n    ".concat(message !== null && message !== void 0 ? message : "", "\n    <input type=\"text\" name=\"custom1d100input\" placeholder=\"Modifier\"> \n    </form>\n    "),
+            title: title !== null && title !== void 0 ? title : '1 dado de 100 con modificador',
+            content: "\n    <form>\n    ".concat(message !== null && message !== void 0 ? message : '', "\n    <input type=\"text\" name=\"custom1d100input\" placeholder=\"Modifier\"> \n    </form>\n    "),
             buttons: {
                 no: {
-                    label: "Cancel",
+                    label: 'Cancel',
                 },
                 yes: {
-                    label: "Lanzar",
+                    label: 'Lanzar',
                     callback: function (html) {
                         if (html instanceof HTMLElement)
                             return;
                         var stringInputValue = html.find('[name="custom1d100input"]')[0]
                             .nodeValue;
                         if (!stringInputValue) {
-                            throw new GCError("Invalid value");
+                            throw new GCError('Invalid value');
                         }
                         var formula = "1d100xa";
                         if (stringInputValue.length > 0) {
@@ -1204,7 +1204,7 @@ var custom1d100 = function (_a) {
                     },
                 },
             },
-            default: "yes",
+            default: 'yes',
             close: function () { },
         }).render(true);
     });
@@ -1215,39 +1215,39 @@ var getSelectedToken = function () {
         : Array.from(game.canvas.scene.tokens.values())[0];
 };
 var getSelectedTokenActorData = function () {
-    var _a, _b;
+    var _a, _b, _c;
     var token = getSelectedToken();
     if (token === undefined) {
-        createDialog("Error", "Tienes que seleccionar a un personaje primero");
-        throw new GCError("No selected token");
+        createDialog('Error', 'Tienes que seleccionar a un personaje primero');
+        throw new GCError('No selected token');
     }
     var isMyToken = ((_a = canvas.tokens) === null || _a === void 0 ? void 0 : _a.ownedTokens.filter(function (tk) { return tk.id === token.id; }).length) === 1;
-    if (!isMyToken) {
-        createDialog("Error", "No tienes permisos sobre ".concat(token.data.name));
-        throw new GCError("No permission");
+    if (!isMyToken && !((_b = game.user) === null || _b === void 0 ? void 0 : _b.isGM)) {
+        createDialog('Error', "No tienes permisos sobre ".concat(token.data.name));
+        throw new GCError('No permission');
     }
-    return (_b = token.data.document) === null || _b === void 0 ? void 0 : _b.data;
+    return (_c = token.data.document) === null || _c === void 0 ? void 0 : _c.data;
 };
 var getDifficultyName = function (value) {
     if (value < 40)
-        return "Rutinaria";
+        return 'Rutinaria';
     if (value < 80)
-        return "Fácil";
+        return 'Fácil';
     if (value < 120)
-        return "Media";
+        return 'Media';
     if (value < 140)
-        return "Difícil";
+        return 'Difícil';
     if (value < 180)
-        return "Muy difícil";
+        return 'Muy difícil';
     if (value < 240)
-        return "Absurdo";
+        return 'Absurdo';
     if (value < 280)
-        return "Casi imposible";
+        return 'Casi imposible';
     if (value < 320)
-        return "Imposible";
+        return 'Imposible';
     if (value < 440)
-        return "Inhumano";
-    return "Zen";
+        return 'Inhumano';
+    return 'Zen';
 };
 var createCharacterControl = function (_a) {
     var title = _a.title, subtitle = _a.subtitle, value = _a.value, name = _a.name;
@@ -1262,7 +1262,7 @@ var createCharacterControl = function (_a) {
             speaker: ChatMessage.getSpeaker({ token: getSelectedToken() }),
             flavor: buildCustomMessageDiceFlavor({
                 title: subtitle,
-                subtitle: "Dificultad alcanzada",
+                subtitle: 'Dificultad alcanzada',
                 message: message,
             }),
         });
@@ -1270,7 +1270,7 @@ var createCharacterControl = function (_a) {
 };
 var buildCustomMessageDiceFlavor = function (_a) {
     var title = _a.title, subtitle = _a.subtitle, message = _a.message;
-    return "\n<p style=\"font-size: 15px;text-align: center\">\n    <b>".concat(title, "\n    ").concat(subtitle ? "</br><span style=\"font-size: 12px\">".concat(subtitle, "</span>") : "", "\n    </br>\n    <span style=\"font-size: 18px; color: #6e2917\">").concat(message, "</span>\n</p>");
+    return "\n<p style=\"font-size: 15px;text-align: center\">\n    <b>".concat(title, "\n    ").concat(subtitle ? "</br><span style=\"font-size: 12px\">".concat(subtitle, "</span>") : '', "\n    </br>\n    <span style=\"font-size: 18px; color: #6e2917\">").concat(message, "</span>\n</p>");
 };
 var getGMUser = function () { return game.users.find(function (u) { return u.isGM; }); };
 

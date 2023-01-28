@@ -1,4 +1,4 @@
-import "../index.css";
+import '../index.css';
 export declare const createDialog: (title: string, content: string) => Dialog;
 export declare const custom1d100: ({ title, message, additionalDiceValues, }: {
     title: string;
