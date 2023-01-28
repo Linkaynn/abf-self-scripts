@@ -1,10 +1,12 @@
+import "../index.css";
+
 class GCError extends Error {
   constructor(message: string) {
     super(`[GC::Scripts] ${message}`);
   }
 }
 
-window.createDialog = (title: string, content: string) =>
+export const createDialog = (title: string, content: string): Dialog =>
   new Dialog({
     title,
     content,
@@ -17,7 +19,15 @@ window.createDialog = (title: string, content: string) =>
     close: () => {},
   }).render(true) as Dialog;
 
-window.custom1d100 = ({ title, message, additionalDiceValues }) =>
+export const custom1d100 = ({
+  title,
+  message,
+  additionalDiceValues,
+}: {
+  title: string;
+  message?: string;
+  additionalDiceValues?: string;
+}): Promise<ABFFoundryRoll> =>
   new Promise((resolve) => {
     return new Dialog({
       title: title ?? "1 dado de 100 con modificador",
@@ -66,19 +76,16 @@ window.custom1d100 = ({ title, message, additionalDiceValues }) =>
     }).render(true);
   });
 
-window.getSelectedToken = () =>
+export const getSelectedToken = (): TokenDocument | undefined =>
   game.canvas.scene === undefined
     ? undefined
     : Array.from(game.canvas.scene!.tokens.values())[0];
 
-window.getSelectedTokenActorData = () => {
-  const token = window.getSelectedToken();
+export const getSelectedTokenActorData = (): TokenData | undefined => {
+  const token = getSelectedToken();
 
   if (token === undefined) {
-    window.createDialog(
-      "Error",
-      "Tienes que seleccionar a un personaje primero"
-    );
+    createDialog("Error", "Tienes que seleccionar a un personaje primero");
 
     throw new GCError("No selected token");
   }
@@ -87,7 +94,7 @@ window.getSelectedTokenActorData = () => {
     canvas.tokens?.ownedTokens.filter((tk) => tk.id === token.id).length === 1;
 
   if (!isMyToken) {
-    window.createDialog("Error", `No tienes permisos sobre ${token.data.name}`);
+    createDialog("Error", `No tienes permisos sobre ${token.data.name}`);
 
     throw new GCError("No permission");
   }
@@ -95,7 +102,7 @@ window.getSelectedTokenActorData = () => {
   return token.data.document?.data;
 };
 
-window.getDifficultyName = (value) => {
+export const getDifficultyName = (value: number) => {
   if (value < 40) return "Rutinaria";
   if (value < 80) return "Fácil";
   if (value < 120) return "Media";
@@ -109,29 +116,45 @@ window.getDifficultyName = (value) => {
   return "Zen";
 };
 
-window.createCharacterControl = ({ title, subtitle, value, name }) => {
-  window
-    .custom1d100({
-      title: title,
-      additionalDiceValues: `${value}[${name}]`,
-    })
-    .then((dice) => {
-      if (dice.total === undefined) return;
+export const createCharacterControl = ({
+  title,
+  subtitle,
+  value,
+  name,
+}: {
+  title: string;
+  subtitle: string;
+  value: string;
+  name: string;
+}) => {
+  custom1d100({
+    title: title,
+    additionalDiceValues: `${value}[${name}]`,
+  }).then((dice) => {
+    if (dice.total === undefined) return;
 
-      const message = window.getDifficultyName(dice.total);
+    const message = getDifficultyName(dice.total);
 
-      dice.toMessage({
-        speaker: ChatMessage.getSpeaker({ token: window.getSelectedToken() }),
-        flavor: window.buildCustomMessageDiceFlavor({
-          title: subtitle,
-          subtitle: "Dificultad alcanzada",
-          message,
-        }),
-      });
+    dice.toMessage({
+      speaker: ChatMessage.getSpeaker({ token: getSelectedToken() }),
+      flavor: buildCustomMessageDiceFlavor({
+        title: subtitle,
+        subtitle: "Dificultad alcanzada",
+        message,
+      }),
     });
+  });
 };
 
-window.buildCustomMessageDiceFlavor = ({ title, subtitle, message }) => {
+export const buildCustomMessageDiceFlavor = ({
+  title,
+  subtitle,
+  message,
+}: {
+  title: string;
+  subtitle: string;
+  message: string;
+}) => {
   return `
 <p style="font-size: 15px;text-align: center">
     <b>${title}
@@ -141,22 +164,4 @@ window.buildCustomMessageDiceFlavor = ({ title, subtitle, message }) => {
 </p>`;
 };
 
-window.getGMUser = () => game.users!.find((u) => u.isGM)!;
-
-if (!window.customScriptsInitialized) {
-  window.customScriptsInitialized = true;
-
-  const initDialog = window.createDialog(
-    "Initialization",
-    "Anima Beyond Foundry Enhanced!"
-  );
-
-  setTimeout(() => {
-    initDialog.close();
-  }, 1000);
-
-  console.log(
-    "%c Anima Beyond Foundry Enhanced! ",
-    "background: #222; color: #bada55"
-  );
-}
+export const getGMUser = (): User => game.users!.find((u) => u.isGM)!;

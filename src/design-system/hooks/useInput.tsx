@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Input } from "../components/ds/Input";
+import { Input } from "../components/Input";
 
 export const useInput = (initialValue = "") => {
   const idRef = useRef(Date.now().toString());
@@ -12,7 +12,7 @@ export const useInput = (initialValue = "") => {
   }, []);
 
   return {
-    getValue: () => getInput().value,
+    getValue: () => getInput()?.value ?? "",
     Input: () => <Input id={idRef.current} />,
   };
 };

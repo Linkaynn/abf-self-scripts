@@ -22,8 +22,6 @@
     "strictNullChecks": true,
     "types": ["@league-of-foundry-developers/foundry-vtt-types"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx", "src/globals.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/globals.d.ts"],
   "exclude": ["node_modules"]
 }

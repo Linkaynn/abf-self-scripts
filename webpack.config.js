@@ -1,7 +1,24 @@
 const path = require("path");
+const glob = require("glob");
+
+const entryMap = {};
+
+const files = glob("**/*.script.ts?(x)", { sync: true });
+
+files.forEach((file) => {
+  const name = file.split("/").pop().split(/\.ts*/)[0];
+
+  entryMap[name] = `./${file}`;
+});
+
+console.log("Scripts to build:");
+
+Object.keys(entryMap).forEach((scriptName) => {
+  console.log(scriptName);
+});
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: entryMap,
   module: {
     rules: [
       {
@@ -22,7 +39,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "build"),
+    filename: "[name].js",
+    path: __dirname + "/build",
   },
 };

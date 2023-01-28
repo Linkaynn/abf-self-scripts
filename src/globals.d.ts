@@ -1,36 +1,9 @@
-import { TokenData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
-import { ReactElement } from "react";
+import { TokenData as LFTokenData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
 
 export {};
 
 declare global {
-  interface Window {
-    createDialog: (title: string, content: string) => Dialog;
-    custom1d100: (params: {
-      title: string;
-      message?: string;
-      additionalDiceValues?: string;
-    }) => Promise<ABFFoundryRoll>;
-    getSelectedToken: () => TokenDocument | undefined;
-    getSelectedTokenActorData: () => TokenData | undefined;
-    getDifficultyName: (value: number) => string;
-    createCharacterControl: (params: {
-      title: string;
-      subtitle: string;
-      value: string;
-      name: string;
-    }) => void;
-    buildCustomMessageDiceFlavor: (params: {
-      title: string;
-      subtitle: string;
-      message: string;
-    }) => string;
-    getGMUser: () => User;
-    customScriptsInitialized: boolean;
-    prepareReact: () => void;
-    render: (element: ReactElement) => void;
-    whisperGM: () => void;
-  }
+  interface TokenData extends LFTokenData {}
 
   class ABFFoundryRoll extends Roll {}
 
