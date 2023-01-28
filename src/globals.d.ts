@@ -6,7 +6,10 @@ import {
 export {};
 
 declare global {
-  class TokenData extends LFTokenData {}
+  class TokenData extends LFTokenData {
+    [key: string]: any;
+  }
+
   class MacroData extends LFMacroData {}
 
   class ABFFoundryRoll extends Roll {}
