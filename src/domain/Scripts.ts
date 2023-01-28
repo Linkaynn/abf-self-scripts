@@ -8,31 +8,31 @@ export type Script = {
 export const Scripts: Record<string, Script> = {
   WhisperGM: {
     name: 'Whisper to GM',
-    script: 'WhisperGM.script.ts',
+    script: 'WhisperGM.script.js',
     icon: 'icons/svg/light.svg',
     permissions: 'all',
   },
   NoticeRoll: {
     name: 'Notice roll',
-    script: 'NoticeRoll.script.ts',
+    script: 'NoticeRoll.script.js',
     icon: 'icons/svg/hazard.svg',
     permissions: 'all',
   },
   MagicAppraisalRoll: {
     name: 'Magic Appraisal roll',
-    script: 'MagicAppraisalRoll.script.ts',
+    script: 'MagicAppraisalRoll.script.js',
     icon: 'icons/svg/daze.svg',
     permissions: 'all',
   },
   PsychicPotentialRoll: {
     name: 'Psychic Potential roll',
-    script: 'PsychicPotentialRoll.script.ts',
+    script: 'PsychicPotentialRoll.script.js',
     icon: 'icons/svg/aura.svg',
     permissions: 'all',
   },
   CalculatePhysicalDistanceDifficulty: {
     name: 'Calculate physical distance difficulty',
-    script: 'CalculatePhysicalDistanceDifficulty.script.ts',
+    script: 'CalculatePhysicalDistanceDifficulty.script.js',
     icon: 'icons/svg/direction.svg',
     permissions: 'all',
   },
@@ -40,13 +40,13 @@ export const Scripts: Record<string, Script> = {
   // GM scripts
   CalculateCritics: {
     name: 'Calculate critics',
-    script: 'CalculateCritics.script.ts',
+    script: 'CalculateCritics.script.js',
     icon: 'icons/svg/skull.svg',
     permissions: 'gm',
   },
   WithStandPainControl: {
     name: 'With Stand Pain Control',
-    script: 'WithStandPainControl.script.ts',
+    script: 'WithStandPainControl.script.js',
     icon: 'icons/svg/bones.svg',
     permissions: 'gm',
   }
