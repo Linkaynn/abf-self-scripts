@@ -1,18 +1,23 @@
-import React, { ElementType } from "react";
-import { createRoot } from "react-dom/client";
+import React, { ElementType } from 'react';
+import { createRoot } from 'react-dom/client';
 
-export const renderDialog = (
-  dialogName: string,
-  Element: ElementType<{ dialog: Dialog }>
-) => {
+export const renderDialog = ({
+  name,
+  Element,
+  size,
+}: {
+  name: string;
+  Element: ElementType<{ dialog: Dialog }>;
+  size?: { width: number; height: number };
+}) => {
   const dialogId = Date.now().toString();
 
   const d = new Dialog(
     {
-      title: dialogName,
+      title: name,
       content: `<div id="${dialogId}"/>`,
       buttons: {},
-      default: "",
+      default: '',
       render: () => {
         const container = document.getElementById(dialogId);
 
@@ -25,6 +30,11 @@ export const renderDialog = (
       },
       close: () => {},
     },
-    { resizable: true, classes: ["react-dialog"] }
+    {
+      resizable: true,
+      classes: ['react-dialog'],
+      width: size?.width ?? 250,
+      height: size?.height ?? 250,
+    },
   ).render(true);
 };

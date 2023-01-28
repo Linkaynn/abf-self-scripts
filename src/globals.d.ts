@@ -1,9 +1,13 @@
-import { TokenData as LFTokenData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
+import {
+  MacroData as LFMacroData,
+  TokenData as LFTokenData,
+} from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 
 export {};
 
 declare global {
-  interface TokenData extends LFTokenData {}
+  class TokenData extends LFTokenData {}
+  class MacroData extends LFMacroData {}
 
   class ABFFoundryRoll extends Roll {}
 
