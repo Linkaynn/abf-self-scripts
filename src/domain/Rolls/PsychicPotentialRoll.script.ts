@@ -7,9 +7,9 @@ const data = getSelectedTokenActorData();
 
 if (data) {
   createCharacterControl({
-    title: 'Magic Appraisal Roll Control',
-    subtitle: 'Magic Appraisal',
-    name: 'Magic Appraisal',
-    value: data.secondaries.intellectual.magicAppraisal.final.value,
+    title: 'Psychic Potential Roll Control',
+    subtitle: 'Psychic Potential',
+    name: 'Psychic Potential',
+    value: data.psychic.psychicPotential.final.value,
   });
 }

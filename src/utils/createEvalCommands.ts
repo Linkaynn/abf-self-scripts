@@ -5,6 +5,17 @@ const getEvalCommand = (scriptName: string): string => `
 fetch("https://raw.githubusercontent.com/Linkaynn/abf-self-scripts/public/${scriptName}")
 .then(r => r.text())
 .then(eval)
+.catch(e => {
+    console.error(e);
+    new Dialog(
+      {
+        title: "Error",
+        content: "<div>An error occurred trying to execute the script.</div>",
+        buttons: {},
+        default: '',
+      },
+    ).render(true);
+});
 `;
 
 const AbfSelfScriptFolderName = 'GC::Scripts';

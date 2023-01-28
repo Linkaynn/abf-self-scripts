@@ -152,7 +152,7 @@ export const buildCustomMessageDiceFlavor = ({
   message,
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   message: string;
 }) => {
   return `
