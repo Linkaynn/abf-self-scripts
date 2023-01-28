@@ -64,7 +64,7 @@ export const createEvalCommands = (scripts: Script[]): Promise<void> => {
           if (macro) {
             macro.update({
               name,
-              command: getEvalCommand(script.name),
+              command: getEvalCommand(script.script),
               img: script.icon,
             });
           } else {
