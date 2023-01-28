@@ -980,13 +980,15 @@ var client = __webpack_require__(745);
 ;// CONCATENATED MODULE: ./src/utils/renderDialog.tsx
 
 
-var renderDialog = function (dialogName, Element) {
+var renderDialog = function (_a) {
+    var _b, _c;
+    var name = _a.name, Element = _a.Element, size = _a.size;
     var dialogId = Date.now().toString();
     var d = new Dialog({
-        title: dialogName,
+        title: name,
         content: "<div id=\"".concat(dialogId, "\"/>"),
         buttons: {},
-        default: "",
+        default: '',
         render: function () {
             var container = document.getElementById(dialogId);
             if (!container)
@@ -996,7 +998,12 @@ var renderDialog = function (dialogName, Element) {
             root.render((0,jsx_runtime.jsx)(Element, { dialog: dialog }));
         },
         close: function () { },
-    }, { resizable: true, classes: ["react-dialog"] }).render(true);
+    }, {
+        resizable: true,
+        classes: ['react-dialog'],
+        width: (_b = size === null || size === void 0 ? void 0 : size.width) !== null && _b !== void 0 ? _b : 250,
+        height: (_c = size === null || size === void 0 ? void 0 : size.height) !== null && _c !== void 0 ? _c : 250,
+    }).render(true);
 };
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
@@ -1264,10 +1271,10 @@ var WhisperGMModal = function (_a) {
     return ((0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(Input, {}), (0,jsx_runtime.jsxs)("div", WhisperGMModal_assign({ className: "flex gap-2" }, { children: [(0,jsx_runtime.jsx)(Button, WhisperGMModal_assign({ disabled: getValue().trim().length === 0, onClick: handleSendInfo }, { children: "Enviar" })), (0,jsx_runtime.jsx)(Button, WhisperGMModal_assign({ onClick: function () { return dialog.close(); } }, { children: "Cerrar" }))] }))] }));
 };
 
-;// CONCATENATED MODULE: ./src/domain/WhisperGMModal/WhisperGMModal.script.ts
+;// CONCATENATED MODULE: ./src/domain/WhisperGMModal/WhisperGM.script.ts
 
 
-renderDialog("Whisper to Game Master", WhisperGMModal);
+renderDialog({ name: 'Whisper to Game Master', Element: WhisperGMModal });
 
 })();
 
