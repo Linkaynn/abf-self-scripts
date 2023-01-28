@@ -663,15 +663,19 @@ var createEvalCommands = function (scripts) {
                         command: getEvalCommand(script.script),
                         img: script.icon,
                     });
+                    log("Macro ".concat(name, " updated"));
+                    return macro;
                 }
                 else {
-                    return Macro.create({
+                    var macro_1 = Macro.create({
                         type: 'script',
                         name: name,
                         command: getEvalCommand(script.script),
                         img: script.icon,
                         folder: folder.id,
                     });
+                    log("Macro ".concat(name, " created"));
+                    return macro_1;
                 }
             })).then(function () {
                 resolve();
