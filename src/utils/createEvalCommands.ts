@@ -26,7 +26,6 @@ const createFolderIfNotExists = (): Promise<Folder | undefined> => {
   );
 
   if (existFolder) {
-    existFolder.contents?.forEach((c) => c.delete());
     return Promise.resolve(existFolder);
   }
 
@@ -54,16 +53,29 @@ export const createEvalCommands = (scripts: Script[]): Promise<void> => {
             (s) => s.name === script.name,
           );
 
-          const id = `[GC::${scriptIndex.paddedString(2)}] ${script.name}`;
+          const id = `[${scriptIndex.paddedString(2)}]`;
 
-          return Macro.create({
-            _id: id,
-            type: 'script',
-            command: getEvalCommand(script.script),
-            name: script.name,
-            img: script.icon,
-            folder: folder.id,
-          });
+          const name = `${id} ${script.name}`;
+
+          const macro = game.macros!.find(
+            (m) => m.name != null && m.name.includes(id),
+          );
+
+          if (macro) {
+            macro.update({
+              name,
+              command: getEvalCommand(script.name),
+              img: script.icon,
+            });
+          } else {
+            return Macro.create({
+              type: 'script',
+              name,
+              command: getEvalCommand(script.script),
+              img: script.icon,
+              folder: folder.id,
+            });
+          }
         }),
       ).then(() => {
         resolve();
