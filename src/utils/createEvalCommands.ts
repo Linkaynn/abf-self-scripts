@@ -67,14 +67,22 @@ export const createEvalCommands = (scripts: Script[]): Promise<void> => {
               command: getEvalCommand(script.script),
               img: script.icon,
             });
+
+            log(`Macro ${name} updated`);
+
+            return macro;
           } else {
-            return Macro.create({
+            const macro = Macro.create({
               type: 'script',
               name,
               command: getEvalCommand(script.script),
               img: script.icon,
               folder: folder.id,
             });
+
+            log(`Macro ${name} created`);
+
+            return macro;
           }
         }),
       ).then(() => {
