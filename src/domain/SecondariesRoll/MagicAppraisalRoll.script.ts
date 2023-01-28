@@ -7,9 +7,9 @@ const data = getSelectedTokenActorData();
 
 if (data) {
   createCharacterControl({
-    title: 'Notice Roll Control',
-    subtitle: 'Notice',
-    name: 'Notice',
-    value: data.secondaries.perception.notice.final.value,
+    title: 'Magic Appraisal Roll Control',
+    subtitle: 'Magic Appraisal',
+    name: 'Magic Appraisal',
+    value: data.secondaries.intellectual.magicAppraisal.final.value,
   });
 }
