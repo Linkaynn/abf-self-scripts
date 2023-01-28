@@ -1,7 +1,9 @@
-interface InputProps {
-  id: string;
-}
+import { HTMLProps } from 'react';
 
-export const Input = ({ id }: InputProps) => {
-  return <input id={id} type="text" />;
+type InputProps = {
+  id: string;
+} & HTMLProps<HTMLInputElement>;
+
+export const Input = ({ id, ...rest }: InputProps) => {
+  return <input id={id} type="text" {...rest} />;
 };
